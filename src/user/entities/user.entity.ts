@@ -11,10 +11,10 @@ export class User {
   @Column({ type: 'varchar', length: 20 })
   username: string;
 
-  @Column({ type: 'varchar', length: 20 })
+  @Column({ type: 'varchar', length: 20, unique: true })
   email: string;
 
-  @Column({ type: 'varchar', length: 35 })
+  @Column({ type: 'varchar', length: 100 })
   password: string;
 
   @Column({ type: 'varchar' })
@@ -22,4 +22,7 @@ export class User {
 
   @Column({ type: 'enum', enum: ['male', 'female', 'unspecified'] })
   gender: string;
+
+  @Column({ type: 'varchar', length: 100, nullable: true })
+  refreshToken: string | null;
 }

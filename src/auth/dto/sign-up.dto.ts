@@ -1,15 +1,13 @@
 import {
-  IsAlphanumeric,
   IsEmail,
   IsEnum,
   IsInt,
   IsNotEmpty,
   IsString,
-  Matches,
   MinLength,
 } from 'class-validator';
 
-export class CreateUserDto {
+export class SignUpDto {
   @IsString()
   @MinLength(5, {
     message: 'Your full name needs to have at least 5 characters.',

@@ -3,6 +3,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UserService {
@@ -10,8 +11,9 @@ export class UserService {
     @InjectRepository(User) private readonly userRepository: Repository<User>,
   ) {}
 
-  registerUser(createUserDto: CreateUserDto): Promise<User> {
+  async createUser(createUserDto: CreateUserDto): Promise<User> {
     const user: User = new User();
+
     user.fullName = createUserDto.fullName;
     user.username = createUserDto.username;
     user.email = createUserDto.email;
@@ -22,15 +24,25 @@ export class UserService {
     return this.userRepository.save(user);
   }
 
-  findUsers(): Promise<User[]> {
+  async updateUser(id: number, updateUserDto: UpdateUserDto): Promise<string> {
+    await this.userRepository.update(id, updateUserDto);
+    return 'User updated!';
+  }
+
+  async findUsers(): Promise<User[]> {
     return this.userRepository.find();
   }
 
-  findUser(id: number): Promise<User> {
+  async findById(id: number): Promise<User> {
     return this.userRepository.findOneBy({ id });
   }
 
-  findByEmail(email: string): Promise<User> {
+  async findByEmail(email: string): Promise<User> {
     return this.userRepository.findOneBy({ email });
+  }
+
+  async removeUser(id: number): Promise<string> {
+    await this.userRepository.delete(id);
+    return `User ${id} deleted!`;
   }
 }
