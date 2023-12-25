@@ -7,6 +7,8 @@ import {
   MinLength,
 } from 'class-validator';
 
+import { Role } from 'src/user/user.interface';
+
 export class SignUpDto {
   @IsString()
   @MinLength(5, {
@@ -43,4 +45,8 @@ export class SignUpDto {
   @IsString()
   @IsNotEmpty()
   refreshToken: string;
+
+  @IsString()
+  @IsNotEmpty()
+  role: Role;
 }

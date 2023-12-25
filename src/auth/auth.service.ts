@@ -1,14 +1,11 @@
-import {
-  BadRequestException,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { UserService } from 'src/user/user.service';
 import { SignInDto } from './dto/sign-in.dto';
 import { SignUpDto } from './dto/sign-up.dto';
 import { JwtService } from '@nestjs/jwt';
 import * as argon2 from 'argon2';
 import { jwtConstants } from './constants';
+import { JwtResponse } from './auth.interface';
 
 @Injectable()
 export class AuthService {
@@ -29,7 +26,14 @@ export class AuthService {
       password: hash,
     });
 
-    const tokens = await this.getTokens(user.id, user.email, user.username);
+    const jwt = {
+      userId: user.id,
+      email: user.email,
+      username: user.username,
+      role: user.role,
+    };
+
+    const tokens = await this.getTokens(jwt);
     await this.updateRefreshToken(user.id, tokens.refreshToken);
     return tokens;
   }
@@ -45,7 +49,14 @@ export class AuthService {
       throw new BadRequestException('Password is incorrect.');
     }
 
-    const tokens = await this.getTokens(user.id, user.email, user.username);
+    const jwt = {
+      userId: user.id,
+      email: user.email,
+      username: user.username,
+      role: user.role,
+    };
+
+    const tokens = await this.getTokens(jwt);
     await this.updateRefreshToken(user.id, tokens.refreshToken);
     return tokens;
   }
@@ -65,13 +76,15 @@ export class AuthService {
     });
   }
 
-  async getTokens(userId: number, email: string, username: string) {
+  async getTokens(jwt: JwtResponse) {
+    const { userId, email, username, role } = jwt;
     const [accessToken, refreshToken] = await Promise.all([
       this.jwtService.signAsync(
         {
           subscriber: userId,
           email,
           username,
+          role,
         },
         {
           secret: jwtConstants.access_secret,
@@ -83,6 +96,7 @@ export class AuthService {
           subscriber: userId,
           email,
           username,
+          role,
         },
         {
           secret: jwtConstants.refresh_secret,

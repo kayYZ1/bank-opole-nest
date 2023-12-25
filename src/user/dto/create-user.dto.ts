@@ -1,13 +1,13 @@
 import {
-  IsAlphanumeric,
   IsEmail,
   IsEnum,
   IsInt,
   IsNotEmpty,
   IsString,
-  Matches,
   MinLength,
 } from 'class-validator';
+
+import { Role } from '../user.interface';
 
 export class CreateUserDto {
   @IsString()
@@ -45,4 +45,8 @@ export class CreateUserDto {
   @IsString()
   @IsNotEmpty()
   refreshToken: string;
+
+  @IsString()
+  @IsNotEmpty()
+  role: Role
 }

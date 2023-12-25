@@ -1,4 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Role } from '../user.interface';
 
 @Entity()
 export class User {
@@ -25,4 +26,7 @@ export class User {
 
   @Column({ type: 'varchar', length: 100, nullable: true })
   refreshToken: string | null;
+
+  @Column({ type: 'enum', enum: Role })
+  role: Role;
 }

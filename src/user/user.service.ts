@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { Role } from './user.interface';
 
 @Injectable()
 export class UserService {
@@ -20,6 +21,7 @@ export class UserService {
     user.password = createUserDto.password;
     user.age = createUserDto.age;
     user.gender = createUserDto.gender;
+    user.role = Role.User
 
     return this.userRepository.save(user);
   }
