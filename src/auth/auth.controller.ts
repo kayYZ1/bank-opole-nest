@@ -34,13 +34,13 @@ export class AuthController {
   @UseGuards(AccessTokenGuard)
   @Get('logout')
   signOut(@Req() req: Request) {
-    this.authService.signOut(req.user['subscriber']); 
+    this.authService.signOut(req.user['subscriber']);
   }
 
   @UseGuards(AccessTokenGuard)
   @Get('profile')
   getProfile(@Req() req: Request) {
-    return req;
+    return req.user;
   }
 
   @UseGuards(RefreshTokenGuard)
