@@ -11,7 +11,7 @@ import {
 import { AuthService } from './auth.service';
 import { SignInDto } from './dto/sign-in.dto';
 
-import { SignUpDto } from './dto/sign-up.dto';
+import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { Request } from 'express';
 import { AccessTokenGuard } from './guards/access-token.guard';
 import { RefreshTokenGuard } from './guards/refresh-token.guard';
@@ -27,7 +27,7 @@ export class AuthController {
   }
 
   @Post('register')
-  signUp(@Body() dto: SignUpDto) {
+  signUp(@Body() dto: CreateUserDto) {
     return this.authService.signUp(dto);
   }
 

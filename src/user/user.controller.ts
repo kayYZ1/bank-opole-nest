@@ -6,10 +6,12 @@ import {
   Delete,
   Param,
   Patch,
+  UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { AccessTokenGuard } from 'src/auth/guards/access-token.guard';
 
 @Controller('user')
 export class UserController {
@@ -30,11 +32,13 @@ export class UserController {
     return this.userService.findById(+id);
   }
 
+  @UseGuards(AccessTokenGuard)
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
     return this.userService.updateUser(+id, updateUserDto);
   }
 
+  @UseGuards(AccessTokenGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.userService.removeUser(+id);

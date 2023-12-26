@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { UserService } from 'src/user/user.service';
 import { SignInDto } from './dto/sign-in.dto';
-import { SignUpDto } from './dto/sign-up.dto';
+import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { JwtService } from '@nestjs/jwt';
 import * as argon2 from 'argon2';
 import { jwtConstants } from './constants';
@@ -18,7 +18,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async signUp(dto: SignUpDto): Promise<any> {
+  async signUp(dto: CreateUserDto): Promise<any> {
     const userExists = await this.userService.findByEmail(dto.email);
     if (userExists) {
       throw new BadRequestException('User with that e-mail already exists.');
