@@ -48,5 +48,5 @@ export class SignUpDto {
 
   @IsString()
   @IsNotEmpty()
-  role: Role;
+  readonly role: Role;
 }

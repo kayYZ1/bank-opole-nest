@@ -11,9 +11,10 @@ import {
 import { AuthService } from './auth.service';
 import { SignInDto } from './dto/sign-in.dto';
 
-import { AuthGuard } from './auth.guard';
 import { SignUpDto } from './dto/sign-up.dto';
 import { Request } from 'express';
+import { AccessTokenGuard } from './guards/access-token.guard';
+import { RefreshTokenGuard } from './guards/refresh-token.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -30,14 +31,23 @@ export class AuthController {
     return this.authService.signUp(dto);
   }
 
+  @UseGuards(AccessTokenGuard)
   @Get('logout')
   signOut(@Req() req: Request) {
-    this.authService.signOut(req.user['subscriber']);
+    this.authService.signOut(req.user['subscriber']); 
   }
 
-  @UseGuards(AuthGuard)
+  @UseGuards(AccessTokenGuard)
   @Get('profile')
   getProfile(@Req() req: Request) {
-    return req.user;
+    return req;
+  }
+
+  @UseGuards(RefreshTokenGuard)
+  @Get('refresh')
+  refreshTokens(@Req() req: Request) {
+    const userId = req.user['subscriber'];
+    const refreshToken = req.user['refreshToken'];
+    return this.authService.refreshTokens(userId, refreshToken);
   }
 }

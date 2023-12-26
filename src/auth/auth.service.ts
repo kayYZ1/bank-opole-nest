@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ForbiddenException,
+  Injectable,
+} from '@nestjs/common';
 import { UserService } from 'src/user/user.service';
 import { SignInDto } from './dto/sign-in.dto';
 import { SignUpDto } from './dto/sign-up.dto';
@@ -109,5 +113,28 @@ export class AuthService {
       accessToken,
       refreshToken,
     };
+  }
+  async refreshTokens(userId: number, refreshToken: string) {
+    const user = await this.userService.findById(userId);
+    if (!user || !user.refreshToken) {
+      throw new ForbiddenException('Access denied');
+    }
+
+    const tokenMatches = await argon2.verify(user.refreshToken, refreshToken);
+
+    if (!tokenMatches) {
+      throw new ForbiddenException('Access denied');
+    }
+
+    const jwt = {
+      userId: user.id,
+      email: user.email,
+      username: user.username,
+      role: user.role,
+    };
+
+    const tokens = await this.getTokens(jwt);
+    await this.updateRefreshToken(user.id, tokens.refreshToken);
+    return tokens;
   }
 }
