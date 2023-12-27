@@ -7,7 +7,7 @@ import {
   MinLength,
 } from 'class-validator';
 
-import { Role } from '../user.interface';
+import { Role } from 'src/enums/roles.enum';
 
 export class CreateUserDto {
   @IsString()
@@ -32,7 +32,7 @@ export class CreateUserDto {
   age: number;
 
   @IsString()
-  @IsEnum(['f', 'm', 'u'])
+  @IsEnum(['male', 'female', 'unspecified'])
   gender: string;
 
   @IsString()

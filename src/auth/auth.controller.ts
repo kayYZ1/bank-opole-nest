@@ -1,13 +1,4 @@
-import {
-  Controller,
-  Post,
-  Body,
-  HttpCode,
-  HttpStatus,
-  Req,
-  Get,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, Post, Body, Req, Get, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { SignInDto } from './dto/sign-in.dto';
 
@@ -15,12 +6,15 @@ import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { Request } from 'express';
 import { AccessTokenGuard } from './guards/access-token.guard';
 import { RefreshTokenGuard } from './guards/refresh-token.guard';
+import { RolesGuard } from './guards/roles.guard';
+
+import { ROLES } from './decorators/roles.decorator';
+import { Role } from 'src/enums/roles.enum';
 
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  @HttpCode(HttpStatus.OK)
   @Post('login')
   signIn(@Body() dto: SignInDto) {
     return this.authService.signIn(dto);
@@ -37,7 +31,8 @@ export class AuthController {
     this.authService.signOut(req.user['subscriber']);
   }
 
-  @UseGuards(AccessTokenGuard)
+  @UseGuards(AccessTokenGuard, RolesGuard)
+  @ROLES(Role.Admin) //Only admin should access
   @Get('profile')
   getProfile(@Req() req: Request) {
     return req.user;

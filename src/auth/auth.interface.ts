@@ -1,4 +1,4 @@
-import { Role } from 'src/user/user.interface';
+import { Role } from "src/enums/roles.enum";
 
 export interface JwtResponse {
   userId: number;
