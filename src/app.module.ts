@@ -9,6 +9,8 @@ import { AuthModule } from './auth/auth.module';
 import postgreConfig from './config/postgre.config';
 import { ConfigModule } from '@nestjs/config';
 import { ConfigService } from '@nestjs/config';
+import { AccountModule } from './account/account.module';
+import { Account } from './account/entities/account.entity';
 
 @Module({
   imports: [
@@ -25,7 +27,7 @@ import { ConfigService } from '@nestjs/config';
         port: 5432,
         password: configService.get<string>('postgre.password'),
         username: 'postgres',
-        entities: [User],
+        entities: [User, Account],
         database: configService.get<string>('postgre.name'),
         synchronize: true,
         logging: true,
@@ -34,6 +36,7 @@ import { ConfigService } from '@nestjs/config';
     }),
     UserModule,
     AuthModule,
+    AccountModule,
   ],
   controllers: [AppController],
   providers: [AppService],
