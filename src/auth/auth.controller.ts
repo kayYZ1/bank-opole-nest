@@ -6,10 +6,6 @@ import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { Request } from 'express';
 import { AccessTokenGuard } from './guards/access-token.guard';
 import { RefreshTokenGuard } from './guards/refresh-token.guard';
-import { RolesGuard } from './guards/roles.guard';
-
-import { ROLES } from './decorators/roles.decorator';
-import { Role } from 'src/enums/roles.enum';
 
 @Controller('auth')
 export class AuthController {
@@ -31,8 +27,7 @@ export class AuthController {
     this.authService.signOut(req.user['subscriber']);
   }
 
-  @UseGuards(AccessTokenGuard, RolesGuard)
-  @ROLES(Role.Admin) //Only admin should access
+  @UseGuards(AccessTokenGuard)
   @Get('profile')
   getProfile(@Req() req: Request) {
     return req.user;

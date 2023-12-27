@@ -13,6 +13,10 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { AccessTokenGuard } from 'src/auth/guards/access-token.guard';
 
+import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { Role } from 'src/enums/roles.enum';
+import { ROLES } from 'src/auth/decorators/roles.decorator';
+
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -23,10 +27,13 @@ export class UserController {
   }
 
   @Get()
+  @UseGuards(AccessTokenGuard, RolesGuard)
+  @ROLES(Role.Admin)
   findAll() {
     return this.userService.findUsers();
   }
 
+  @UseGuards(AccessTokenGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.userService.findById(+id);
