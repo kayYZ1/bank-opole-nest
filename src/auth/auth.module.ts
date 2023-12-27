@@ -6,8 +6,15 @@ import { JwtModule } from '@nestjs/jwt';
 import { AccessTokenStrategy } from './strategies/access-token.strategy';
 import { RefreshTokenStrategy } from './strategies/refresh-token.strategy';
 
+import { ConfigModule } from '@nestjs/config';
+import jwtConfig from 'src/config/jwt.config';
+
 @Module({
-  imports: [UserModule, JwtModule.register({})],
+  imports: [
+    UserModule,
+    JwtModule.register({}),
+    ConfigModule.forFeature(jwtConfig),
+  ],
   providers: [AuthService, AccessTokenStrategy, RefreshTokenStrategy],
   controllers: [AuthController],
 })

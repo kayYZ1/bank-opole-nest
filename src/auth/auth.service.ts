@@ -8,14 +8,15 @@ import { SignInDto } from './dto/sign-in.dto';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { JwtService } from '@nestjs/jwt';
 import * as argon2 from 'argon2';
-import { jwtConstants } from './constants';
 import { JwtResponse } from './auth.interface';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly userService: UserService,
     private readonly jwtService: JwtService,
+    private readonly configService: ConfigService
   ) {}
 
   async signUp(dto: CreateUserDto): Promise<any> {
@@ -91,7 +92,7 @@ export class AuthService {
           role,
         },
         {
-          secret: jwtConstants.access_secret,
+          secret: this.configService.get<string>('jwt.access_secret'),
           expiresIn: '30m',
         },
       ),
@@ -103,7 +104,7 @@ export class AuthService {
           role,
         },
         {
-          secret: jwtConstants.refresh_secret,
+          secret: this.configService.get<string>('jwt.refresh_secret'),
           expiresIn: '7d',
         },
       ),
