@@ -4,6 +4,7 @@ import { Account } from './entities/account.entity';
 import { Repository } from 'typeorm';
 import { OpenAccountDto } from './dto/open-account.dto';
 import { SuspendAccountDto } from './dto/suspend-account.dto';
+import { UpdateAccountDto } from './dto/update-account.dto';
 
 @Injectable()
 export class AccountService {
@@ -35,5 +36,13 @@ export class AccountService {
 
     await this.accountRespository.update(id, dto);
     return `Account ${id} changed it status to ${dto.status}`;
+  }
+
+  async updateAccount(dto: UpdateAccountDto, id: number) {
+    const accountExist = await this.accountRespository.findOneBy({ id });
+    if (!accountExist) throw new BadRequestException('Account does not exist.');
+
+    await this.accountRespository.update(id, dto);
+    return `Account ${id} has been updated`;
   }
 }

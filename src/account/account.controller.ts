@@ -16,6 +16,7 @@ import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { ROLES } from 'src/auth/decorators/roles.decorator';
 import { Role } from 'src/enums/roles.enum';
 import { SuspendAccountDto } from './dto/suspend-account.dto';
+import { UpdateAccountDto } from './dto/update-account.dto';
 
 @Controller('account')
 export class AccountController {
@@ -33,5 +34,11 @@ export class AccountController {
   @ROLES(Role.Admin)
   suspendAccount(@Body() dto: SuspendAccountDto, @Param('id') id: string) {
     return this.accountService.suspendAccount(dto, +id);
+  }
+
+  @Patch('update/:id')
+  @UseGuards(AccessTokenGuard)
+  updateAccount(@Body() dto: UpdateAccountDto, @Param('id') id: string) {
+    return this.accountService.updateAccount(dto, +id);
   }
 }
