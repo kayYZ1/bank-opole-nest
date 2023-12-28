@@ -4,6 +4,7 @@ import {
   PrimaryGeneratedColumn,
   OneToOne,
   JoinColumn,
+  CreateDateColumn,
 } from 'typeorm';
 import { User } from 'src/user/entities/user.entity';
 import { Status } from 'src/enums/accounts.enum';
@@ -31,6 +32,9 @@ export class Account {
     default: Status.ACTIVE,
   })
   status: Status;
+
+  @CreateDateColumn({ type: 'date' })
+  created: Date;
 
   @OneToOne(() => User)
   @JoinColumn()
