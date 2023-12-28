@@ -32,7 +32,10 @@ export class AccountService {
 
   async suspendAccount(dto: SuspendAccountDto, id: number) {
     const accountExist = await this.accountRespository.findOneBy({ id });
-    if (!accountExist) throw new BadRequestException('Account does not exist.');
+    if (!accountExist)
+      throw new BadRequestException(
+        'Bank account with that id does not exist.',
+      );
 
     await this.accountRespository.update(id, dto);
     return `Account ${id} changed it status to ${dto.status}`;
@@ -40,7 +43,10 @@ export class AccountService {
 
   async updateAccount(dto: UpdateAccountDto, id: number) {
     const accountExist = await this.accountRespository.findOneBy({ id });
-    if (!accountExist) throw new BadRequestException('Account does not exist.');
+    if (!accountExist)
+      throw new BadRequestException(
+        'Bank account with that id does not exist.',
+      );
 
     await this.accountRespository.update(id, dto);
     return `Account ${id} has been updated`;

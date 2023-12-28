@@ -31,7 +31,7 @@ export class AccountController {
 
   @Patch(':id')
   @UseGuards(AccessTokenGuard, RolesGuard)
-  @ROLES(Role.Admin)
+  @ROLES(Role.Admin) //Suspending account only possible for admin
   suspendAccount(@Body() dto: SuspendAccountDto, @Param('id') id: string) {
     return this.accountService.suspendAccount(dto, +id);
   }
