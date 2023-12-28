@@ -4,6 +4,7 @@ import {
   IsInt,
   IsNotEmpty,
   IsString,
+  Min,
   MinLength,
 } from 'class-validator';
 
@@ -29,6 +30,7 @@ export class CreateUserDto {
   email: string;
 
   @IsInt()
+  @Min(18, { message: 'Minimum age is 18.' })
   age: number;
 
   @IsString()
