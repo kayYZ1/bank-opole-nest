@@ -11,6 +11,8 @@ import { ConfigModule } from '@nestjs/config';
 import { ConfigService } from '@nestjs/config';
 import { AccountModule } from './account/account.module';
 import { Account } from './account/entities/account.entity';
+import { CreditCardModule } from './credit-card/credit-card.module';
+import { CreditCard } from './credit-card/entities/credit-card.entity';
 
 @Module({
   imports: [
@@ -27,7 +29,7 @@ import { Account } from './account/entities/account.entity';
         port: 5432,
         password: configService.get<string>('postgre.password'),
         username: 'postgres',
-        entities: [User, Account],
+        entities: [User, Account, CreditCard],
         database: configService.get<string>('postgre.name'),
         synchronize: true,
         logging: true,
@@ -37,6 +39,7 @@ import { Account } from './account/entities/account.entity';
     UserModule,
     AuthModule,
     AccountModule,
+    CreditCardModule,
   ],
   controllers: [AppController],
   providers: [AppService],
