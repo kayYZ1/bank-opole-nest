@@ -5,8 +5,9 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { CardType, CardStatus } from 'src/enums/credit-card.enum';
-import { Length } from 'class-validator';
+
+import { CardStatus, CardType, Provider } from 'src/enums/credit-card.enum';
+
 import { User } from 'src/user/entities/user.entity';
 
 @Entity()
@@ -14,19 +15,17 @@ export class CreditCard {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  provider: string;
+  @Column({ type: 'enum', enum: Provider })
+  provider: Provider;
 
   @Column({ type: 'enum', enum: CardType })
   type: CardType;
 
   @Column()
-  @Length(16)
-  cardNumber: number;
+  cardNumber: string;
 
   @Column()
-  @Length(3)
-  cvv: number;
+  cvv: string;
 
   @Column({ type: 'enum', enum: CardStatus, default: CardStatus.ACTIVE })
   cardStatus: CardStatus;

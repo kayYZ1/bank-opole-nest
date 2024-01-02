@@ -7,3 +7,8 @@ export enum CardStatus {
   ACTIVE = 'active',
   LOCKED = 'locked',
 }
+
+export enum Provider {
+  VISA = 'visa',
+  MASTERCARD = 'mastercard',
+}
