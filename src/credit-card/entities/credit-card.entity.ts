@@ -33,9 +33,6 @@ export class CreditCard {
   @CreateDateColumn({ type: 'date' })
   issued: Date;
 
-  @Column({ type: 'date' })
-  validTo: Date;
-
   @ManyToOne(() => User, (user) => user.creditCards)
   user: User;
 }

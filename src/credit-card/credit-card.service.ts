@@ -21,7 +21,7 @@ export class CreditCardService {
     creditCard.type = dto.type;
     creditCard.user = userId;
     creditCard.cardNumber = this.generateCardNumber(creditCard.provider);
-    creditCard.cvv = "123"
+    creditCard.cvv = '123';
 
     return this.creditCardRespository.save(creditCard);
   }
