@@ -21,9 +21,24 @@ export class CreditCardService {
     creditCard.type = dto.type;
     creditCard.user = userId;
     creditCard.cardNumber = this.generateCardNumber(creditCard.provider);
-    creditCard.cvv = '123';
+    creditCard.cvv = this.generateCVV(creditCard.cardNumber);
 
     return this.creditCardRespository.save(creditCard);
+  }
+
+  generateCVV(cardNumber: string) {
+    let numberBinary = +cardNumber;
+    const stringBinary = numberBinary.toString(2);
+
+    const firstHalf = +stringBinary.slice(0, 8);
+    const secondHalf = +stringBinary.slice(8, -1);
+
+    const stringsXOR = firstHalf ^ secondHalf;
+
+    const result = stringsXOR.toString(8);
+    const numbersOnly = result.replace(/[^0-9]/g, '');
+
+    return numbersOnly.split('').reverse().join('').slice(0, 3);
   }
 
   generateCardNumber(provider: Provider) {
