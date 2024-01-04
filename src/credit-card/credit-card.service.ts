@@ -26,6 +26,11 @@ export class CreditCardService {
     return this.creditCardRespository.save(creditCard);
   }
 
+  async getAllCards(userId: any) {
+    const creditCards = await this.creditCardRespository.findBy(userId);
+    return creditCards;
+  }
+
   generateCVV(cardNumber: string) {
     let numberBinary = +cardNumber;
     const stringBinary = numberBinary.toString(2);

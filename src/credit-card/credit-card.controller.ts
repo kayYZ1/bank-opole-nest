@@ -1,4 +1,4 @@
-import { Controller, UseGuards, Body, Req, Post } from '@nestjs/common';
+import { Controller, UseGuards, Body, Req, Post, Get } from '@nestjs/common';
 import { CreditCardService } from './credit-card.service';
 import { AccessTokenGuard } from 'src/auth/guards/access-token.guard';
 import { IssueCardDto } from './dto/issue-card.dto';
@@ -13,5 +13,12 @@ export class CreditCardController {
   issueCard(@Body() dto: IssueCardDto, @Req() req: Request) {
     const userId = req.user['subscriber'];
     return this.creditCardService.issueCard(dto, userId);
+  }
+
+  @UseGuards(AccessTokenGuard)
+  @Get('/')
+  getAllCards(@Req() req: Request) {
+    const userId = req.user['subscriber'];
+    return this.creditCardService.getAllCards(userId);
   }
 }
