@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreditCard } from './entities/credit-card.entity';
 import { Repository } from 'typeorm';
@@ -6,6 +6,7 @@ import { IssueCardDto } from './dto/issue-card.dto';
 
 import { Provider } from 'src/enums/credit-card.enum';
 import { IPrefix } from './credit-card.interfaces';
+import { UpdateCardDto } from './dto/update-card.dto';
 
 @Injectable()
 export class CreditCardService {
@@ -29,6 +30,16 @@ export class CreditCardService {
   async getAllCards(userId: any) {
     const creditCards = await this.creditCardRespository.findBy(userId);
     return creditCards;
+  }
+
+  async changeStatus(dto: UpdateCardDto, id: number) {
+    const creditCard = await this.creditCardRespository.findOneBy({ id });
+    if (!creditCard) {
+      throw new BadRequestException('Credit card with such id does not exist');
+    }
+    await this.creditCardRespository.update(id, dto);
+
+    return `Credit card ${id} changed it status to ${dto.cardStatus}`;
   }
 
   generateCVV(cardNumber: string) {
