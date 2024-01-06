@@ -1,12 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import {
-  createCipheriv,
-  createDecipheriv,
-  randomBytes,
-  scryptSync,
-} from 'crypto';
 
 import { CreditCard } from './entities/credit-card.entity';
 import { IssueCardDto } from './dto/issue-card.dto';
