@@ -32,6 +32,12 @@ export class CreditCardController {
   }
 
   @UseGuards(AccessTokenGuard)
+  @Get('/:id')
+  getCard(@Param('id') id: string) {
+    return this.creditCardService.getCard(+id);
+  }
+
+  @UseGuards(AccessTokenGuard)
   @Patch('/change-status/:id')
   changeStatus(@Body() dto: UpdateCardDto, @Param('id') id: string) {
     return this.creditCardService.changeStatus(dto, +id);

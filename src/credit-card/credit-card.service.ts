@@ -1,9 +1,15 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreditCard } from './entities/credit-card.entity';
 import { Repository } from 'typeorm';
-import { IssueCardDto } from './dto/issue-card.dto';
+import {
+  createCipheriv,
+  createDecipheriv,
+  randomBytes,
+  scryptSync,
+} from 'crypto';
 
+import { CreditCard } from './entities/credit-card.entity';
+import { IssueCardDto } from './dto/issue-card.dto';
 import { Provider } from 'src/enums/credit-card.enum';
 import { IPrefix } from './credit-card.interfaces';
 import { UpdateCardDto } from './dto/update-card.dto';
@@ -21,6 +27,7 @@ export class CreditCardService {
     creditCard.provider = dto.provider;
     creditCard.type = dto.type;
     creditCard.user = userId;
+
     creditCard.cardNumber = this.generateCardNumber(creditCard.provider);
     creditCard.cvv = this.generateCVV(creditCard.cardNumber);
 
@@ -29,7 +36,13 @@ export class CreditCardService {
 
   async getAllCards(userId: any) {
     const creditCards = await this.creditCardRespository.findBy(userId);
+
     return creditCards;
+  }
+
+  async getCard(id: number) {
+    const creditCard = await this.creditCardRespository.findOneBy({ id });
+    return creditCard;
   }
 
   async changeStatus(dto: UpdateCardDto, id: number) {
