@@ -10,13 +10,14 @@ import { JwtService } from '@nestjs/jwt';
 import * as argon2 from 'argon2';
 import { JwtResponse } from './auth.interface';
 import { ConfigService } from '@nestjs/config';
+import { User } from 'src/user/entities/user.entity';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly userService: UserService,
     private readonly jwtService: JwtService,
-    private readonly configService: ConfigService
+    private readonly configService: ConfigService,
   ) {}
 
   async signUp(dto: CreateUserDto): Promise<any> {
@@ -31,15 +32,8 @@ export class AuthService {
       password: hash,
     });
 
-    const jwt = {
-      userId: user.id,
-      email: user.email,
-      username: user.username,
-      role: user.role,
-    };
+    const tokens = this.returnTokens(user);
 
-    const tokens = await this.getTokens(jwt);
-    await this.updateRefreshToken(user.id, tokens.refreshToken);
     return tokens;
   }
 
@@ -54,15 +48,8 @@ export class AuthService {
       throw new BadRequestException('Password is incorrect.');
     }
 
-    const jwt = {
-      userId: user.id,
-      email: user.email,
-      username: user.username,
-      role: user.role,
-    };
+    const tokens = this.returnTokens(user);
 
-    const tokens = await this.getTokens(jwt);
-    await this.updateRefreshToken(user.id, tokens.refreshToken);
     return tokens;
   }
 
@@ -127,6 +114,12 @@ export class AuthService {
       throw new ForbiddenException('Access denied');
     }
 
+    const tokens = this.returnTokens(user);
+
+    return tokens;
+  }
+
+  async returnTokens(user: User) {
     const jwt = {
       userId: user.id,
       email: user.email,
