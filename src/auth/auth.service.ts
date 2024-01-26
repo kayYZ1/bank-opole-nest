@@ -8,7 +8,7 @@ import { SignInDto } from './dto/sign-in.dto';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { JwtService } from '@nestjs/jwt';
 import * as argon2 from 'argon2';
-import { JwtResponse } from './auth.interface';
+import { IUserState, JwtResponse } from './auth.interface';
 import { ConfigService } from '@nestjs/config';
 import { User } from 'src/user/entities/user.entity';
 
@@ -32,7 +32,7 @@ export class AuthService {
       password: hash,
     });
 
-    const tokens = this.returnTokens(user);
+    const tokens = await this.returnTokens(user);
 
     return tokens;
   }
@@ -48,9 +48,20 @@ export class AuthService {
       throw new BadRequestException('Password is incorrect.');
     }
 
-    const tokens = this.returnTokens(user);
+    const tokens = await this.returnTokens(user);
 
-    return tokens;
+    const userState: IUserState = {
+      id: user.id,
+      fullName: user.fullName,
+      username: user.username,
+      email: user.email,
+      age: user.age,
+      gender: user.gender,
+      role: user.role,
+      tokens, 
+    };
+
+    return userState;
   }
 
   async signOut(userId: number) {
@@ -114,7 +125,7 @@ export class AuthService {
       throw new ForbiddenException('Access denied');
     }
 
-    const tokens = this.returnTokens(user);
+    const tokens = await this.returnTokens(user);
 
     return tokens;
   }
