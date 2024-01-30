@@ -4,7 +4,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { Role } from 'src/enums/roles.enum';
+
+import { Role } from '../auth/auth.enum';
 
 @Injectable()
 export class UserService {

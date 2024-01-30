@@ -9,10 +9,11 @@ import {
   Param,
 } from '@nestjs/common';
 import { CreditCardService } from './credit-card.service';
-import { AccessTokenGuard } from 'src/auth/guards/access-token.guard';
+import { AccessTokenGuard } from '../auth/guards/access-token.guard';
 import { IssueCardDto } from './dto/issue-card.dto';
 import { Request } from 'express';
 import { UpdateCardDto } from './dto/update-card.dto';
+
 @Controller('credit-card')
 export class CreditCardController {
   constructor(private readonly creditCardService: CreditCardService) {}

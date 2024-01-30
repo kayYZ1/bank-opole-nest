@@ -14,7 +14,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { AccessTokenGuard } from 'src/auth/guards/access-token.guard';
 
 import { RolesGuard } from 'src/auth/guards/roles.guard';
-import { Role } from 'src/enums/roles.enum';
+import { Role } from 'src/enums/auth.enums';
 import { ROLES } from 'src/auth/decorators/roles.decorator';
 
 @Controller('user')

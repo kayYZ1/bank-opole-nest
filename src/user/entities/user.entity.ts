@@ -1,6 +1,7 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Role } from 'src/enums/roles.enum';
-import { CreditCard } from 'src/credit-card/entities/credit-card.entity';
+
+import { CreditCard } from '../../credit-card/entities/credit-card.entity';
+import { Role } from '../../auth/auth.enum';
 
 @Entity()
 export class User {

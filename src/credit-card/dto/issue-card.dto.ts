@@ -1,5 +1,5 @@
 import { IsEnum } from 'class-validator';
-import { CardType, Provider } from 'src/enums/credit-card.enum';
+import { CardType, Provider } from '../credit-card.enum';
 
 export class IssueCardDto {
   @IsEnum(Provider)

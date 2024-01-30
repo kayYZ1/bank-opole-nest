@@ -1,4 +1,4 @@
-import { Provider } from "src/enums/credit-card.enum";
+import { Provider } from './credit-card.enum';
 
 export interface IPrefix {
   provider: Provider;

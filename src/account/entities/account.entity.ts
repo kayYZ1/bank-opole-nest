@@ -7,7 +7,7 @@ import {
   CreateDateColumn,
 } from 'typeorm';
 import { User } from 'src/user/entities/user.entity';
-import { Status } from 'src/enums/accounts.enum';
+import { Status } from 'src/account/account.enum';
 
 @Entity()
 export class Account {

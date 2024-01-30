@@ -4,9 +4,9 @@ import { Repository } from 'typeorm';
 
 import { CreditCard } from './entities/credit-card.entity';
 import { IssueCardDto } from './dto/issue-card.dto';
-import { Provider } from 'src/enums/credit-card.enum';
 import { IPrefix } from './credit-card.interfaces';
 import { UpdateCardDto } from './dto/update-card.dto';
+import { Provider } from './credit-card.enum';
 
 @Injectable()
 export class CreditCardService {

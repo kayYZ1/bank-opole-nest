@@ -1,4 +1,4 @@
-import { Role } from 'src/enums/roles.enum';
+import { Role } from "./auth.enum";
 
 interface ITokens {
   accessToken: string;

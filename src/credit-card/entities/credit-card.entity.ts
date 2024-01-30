@@ -6,9 +6,9 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { CardStatus, CardType, Provider } from 'src/enums/credit-card.enum';
+import { CardStatus, CardType, Provider } from '../credit-card.enum';
 
-import { User } from 'src/user/entities/user.entity';
+import { User } from "../../user/entities/user.entity";
 
 @Entity()
 export class CreditCard {
