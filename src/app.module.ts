@@ -1,16 +1,15 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserModule } from './user/user.module';
-import { User } from './user/entities/user.entity';
 import { AuthModule } from './auth/auth.module';
+import { User } from './user/entities/user.entity';
+import { UserModule } from './user/user.module';
 
-import postgreConfig from './config/postgre.config';
-import { ConfigModule } from '@nestjs/config';
-import { ConfigService } from '@nestjs/config';
 import { AccountModule } from './account/account.module';
 import { Account } from './account/entities/account.entity';
+import postgreConfig from './config/postgre.config';
 import { CreditCardModule } from './credit-card/credit-card.module';
 import { CreditCard } from './credit-card/entities/credit-card.entity';
 

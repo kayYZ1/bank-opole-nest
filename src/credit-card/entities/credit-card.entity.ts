@@ -8,7 +8,7 @@ import {
 
 import { CardStatus, CardType, Provider } from '../credit-card.enum';
 
-import { User } from "../../user/entities/user.entity";
+import { User } from '../../user/entities/user.entity';
 
 @Entity()
 export class CreditCard {

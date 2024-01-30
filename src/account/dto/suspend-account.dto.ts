@@ -1,5 +1,6 @@
-import { IsString, IsEnum } from 'class-validator';
-import { Status } from 'src/account/account.enum';
+import { IsEnum, IsString } from 'class-validator';
+
+import { Status } from '../account.enum';
 
 export class SuspendAccountDto {
   @IsString()

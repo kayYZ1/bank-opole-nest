@@ -3,14 +3,15 @@ import {
   ForbiddenException,
   Injectable,
 } from '@nestjs/common';
-import { UserService } from 'src/user/user.service';
-import { SignInDto } from './dto/sign-in.dto';
-import { CreateUserDto } from 'src/user/dto/create-user.dto';
+import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import * as argon2 from 'argon2';
-import { IUserState, JwtResponse } from './auth.interface';
-import { ConfigService } from '@nestjs/config';
+
+import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { User } from 'src/user/entities/user.entity';
+import { UserService } from 'src/user/user.service';
+import { IUserState, JwtResponse } from './auth.interface';
+import { SignInDto } from './dto/sign-in.dto';
 
 @Injectable()
 export class AuthService {
@@ -58,7 +59,7 @@ export class AuthService {
       age: user.age,
       gender: user.gender,
       role: user.role,
-      tokens, 
+      tokens,
     };
 
     return userState;

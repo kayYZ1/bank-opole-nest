@@ -1,10 +1,11 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Account } from './entities/account.entity';
 import { Repository } from 'typeorm';
+
 import { OpenAccountDto } from './dto/open-account.dto';
 import { SuspendAccountDto } from './dto/suspend-account.dto';
 import { UpdateAccountDto } from './dto/update-account.dto';
+import { Account } from './entities/account.entity';
 
 @Injectable()
 export class AccountService {
