@@ -14,7 +14,7 @@ import { Request } from 'express';
 
 import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { ROLES } from 'src/auth/decorators/roles.decorator';
-import { Role } from 'src/enums/auth.enums';
+import { Role } from 'src/auth/auth.enum';
 import { SuspendAccountDto } from './dto/suspend-account.dto';
 import { UpdateAccountDto } from './dto/update-account.dto';
 
