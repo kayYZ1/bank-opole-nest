@@ -36,7 +36,7 @@ describe('CreditCardService', () => {
     expect(service).toBeDefined();
   });
 
-  it('creditCardRepository should be define', () => {
+  it('creditCardRepository should be defined', () => {
     expect(creditCardRespository).toBeDefined();
   });
 
