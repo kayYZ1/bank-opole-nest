@@ -2,7 +2,9 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { Provider } from './credit-card.enum';
+import { Country } from '../account/account.enum';
+import { AccountService } from '../account/account.service';
+import { Currency, Provider } from './credit-card.enum';
 import { IPrefix } from './credit-card.interfaces';
 import { IssueCardDto } from './dto/issue-card.dto';
 import { UpdateCardDto } from './dto/update-card.dto';
@@ -13,15 +15,20 @@ export class CreditCardService {
   constructor(
     @InjectRepository(CreditCard)
     private readonly creditCardRespository: Repository<CreditCard>,
+    private readonly accountService: AccountService,
   ) {}
 
   async issueCard(dto: IssueCardDto, userId: any) {
+    const currentAccount = await this.accountService.findAccount(userId);
+    console.log(currentAccount); //Returns null and crashes
+
     const creditCard: CreditCard = new CreditCard();
 
     creditCard.provider = dto.provider;
     creditCard.type = dto.type;
     creditCard.user = userId;
 
+    creditCard.currency = this.assignCurrency(currentAccount.country);
     creditCard.cardNumber = this.generateCardNumber(creditCard.provider);
     creditCard.cvv = this.generateCVV(creditCard.cardNumber);
 
@@ -30,7 +37,6 @@ export class CreditCardService {
 
   async getAllCards(userId: any) {
     const creditCards = await this.creditCardRespository.findBy(userId);
-
     return creditCards;
   }
 
@@ -47,6 +53,19 @@ export class CreditCardService {
     await this.creditCardRespository.update(id, dto);
 
     return `Credit card ${id} changed it status to ${dto.cardStatus}`;
+  }
+
+  assignCurrency(country: Country) {
+    switch (country) {
+      case Country.PL:
+        return Currency.PLN;
+      case Country.UK:
+        return Currency.GBP;
+      case Country.US:
+        return Currency.USD;
+      default:
+        return Currency.EUR;
+    }
   }
 
   generateCVV(cardNumber: string) {

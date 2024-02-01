@@ -52,4 +52,8 @@ export class AccountService {
     await this.accountRespository.update(id, dto);
     return `Account ${id} has been updated`;
   }
+
+  findAccount(id: number) {
+    return this.accountRespository.findOneBy({ id });
+  }
 }

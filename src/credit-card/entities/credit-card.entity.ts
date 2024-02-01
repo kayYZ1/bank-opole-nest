@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { CardStatus, CardType, Provider } from '../credit-card.enum';
+import { CardStatus, CardType, Currency, Provider } from '../credit-card.enum';
 
 import { User } from '../../user/entities/user.entity';
 
@@ -26,6 +26,12 @@ export class CreditCard {
 
   @Column()
   cvv: string;
+
+  @Column({ default: 1000 })
+  balance: number
+
+  @Column({ type: 'enum', enum: Currency, default: Currency.PLN })
+  currency: Currency
 
   @Column({ type: 'enum', enum: CardStatus, default: CardStatus.ACTIVE })
   cardStatus: CardStatus;

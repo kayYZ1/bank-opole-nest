@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
+import { AccountModule } from '../account/account.module';
 import { CreditCardController } from './credit-card.controller';
 import { CreditCardService } from './credit-card.service';
 import { CreditCard } from './entities/credit-card.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([CreditCard])],
+  imports: [TypeOrmModule.forFeature([CreditCard]), AccountModule],
   controllers: [CreditCardController],
   providers: [CreditCardService],
 })

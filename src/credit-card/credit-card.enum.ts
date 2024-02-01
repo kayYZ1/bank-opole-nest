@@ -12,3 +12,10 @@ export enum Provider {
   VISA = 'visa',
   MASTERCARD = 'mastercard',
 }
+
+export enum Currency {
+  PLN = 'pln',
+  EUR = 'euro',
+  USD = 'dollar',
+  GBP = 'pound'
+}

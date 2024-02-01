@@ -1,13 +1,13 @@
 import {
-  Entity,
   Column,
-  PrimaryGeneratedColumn,
-  OneToOne,
-  JoinColumn,
   CreateDateColumn,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
-import { User } from 'src/user/entities/user.entity';
-import { Status } from 'src/account/account.enum';
+import { User } from '../../user/entities/user.entity';
+import { Country, Status } from '../account.enum';
 
 @Entity()
 export class Account {
@@ -17,8 +17,8 @@ export class Account {
   @Column({ type: 'varchar', length: 20 })
   phone: string;
 
-  @Column({ type: 'varchar', length: 20 })
-  country: string;
+  @Column({ type: 'enum', enum: Country, default: Country.PL })
+  country: Country;
 
   @Column({ type: 'varchar', length: 20 })
   city: string;

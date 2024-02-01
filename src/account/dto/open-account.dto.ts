@@ -1,4 +1,5 @@
 import { IsNotEmpty, IsPhoneNumber, IsString } from 'class-validator';
+import { Country } from '../account.enum';
 
 export class OpenAccountDto {
   @IsNotEmpty()
@@ -7,7 +8,7 @@ export class OpenAccountDto {
 
   @IsNotEmpty()
   @IsString()
-  country: string;
+  country: Country;
 
   @IsNotEmpty()
   @IsString()
