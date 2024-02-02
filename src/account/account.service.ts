@@ -53,7 +53,7 @@ export class AccountService {
     return `Account ${id} has been updated`;
   }
 
-  findAccount(id: number) {
-    return this.accountRespository.findOneBy({ id });
+  findAccount(userId: number) {
+    return this.accountRespository.findOne({ where: { user: { id: userId } } });
   }
 }

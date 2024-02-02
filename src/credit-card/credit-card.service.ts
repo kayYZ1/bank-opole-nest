@@ -20,7 +20,6 @@ export class CreditCardService {
 
   async issueCard(dto: IssueCardDto, userId: any) {
     const currentAccount = await this.accountService.findAccount(userId);
-    console.log(currentAccount); //Returns null and crashes
 
     const creditCard: CreditCard = new CreditCard();
 
