@@ -15,9 +15,7 @@ export class AccountService {
   ) {}
 
   async openAccount(dto: OpenAccountDto, userId: any) {
-    const accountExist = await this.accountRespository.findOne({
-      where: { user: { id: userId } },
-    });
+    const accountExist = await this.findAccount(userId);
     if (accountExist)
       throw new BadRequestException('You already have one account.');
 
