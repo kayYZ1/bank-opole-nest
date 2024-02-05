@@ -18,7 +18,17 @@ export class TransactionService {
     transaction.receiver = dto.receiverAccountNumber;
     transaction.title = dto.title;
     transaction.amount = dto.amount;
-
+    /*
+      ToDo: Update both credit cards with new amount 
+    */
     return this.transactionRepository.save(transaction);
+  }
+
+  async getAllTransactions() {
+    return this.transactionRepository.find(); //Admin only
+  }
+
+  async getMyTransactions(userId: number) {
+    //No user relation (??)
   }
 }
