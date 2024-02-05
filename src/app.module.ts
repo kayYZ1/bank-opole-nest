@@ -12,6 +12,8 @@ import { Account } from './account/entities/account.entity';
 import postgreConfig from './config/postgre.config';
 import { CreditCardModule } from './credit-card/credit-card.module';
 import { CreditCard } from './credit-card/entities/credit-card.entity';
+import { Transaction } from './transaction/entities/transaction.entity';
+import { TransactionModule } from './transaction/transaction.module';
 
 @Module({
   imports: [
@@ -28,7 +30,7 @@ import { CreditCard } from './credit-card/entities/credit-card.entity';
         port: 5432,
         password: configService.get<string>('postgre.password'),
         username: 'postgres',
-        entities: [User, Account, CreditCard],
+        entities: [User, Account, CreditCard, Transaction],
         database: configService.get<string>('postgre.name'),
         synchronize: true,
         logging: true,
@@ -39,6 +41,7 @@ import { CreditCard } from './credit-card/entities/credit-card.entity';
     AuthModule,
     AccountModule,
     CreditCardModule,
+    TransactionModule,
   ],
   controllers: [AppController],
   providers: [AppService],
