@@ -8,6 +8,7 @@ import { CreditCard } from './entities/credit-card.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([CreditCard]), AccountModule],
+  exports: [CreditCardService],
   controllers: [CreditCardController],
   providers: [CreditCardService],
 })

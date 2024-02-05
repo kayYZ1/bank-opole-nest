@@ -121,4 +121,10 @@ export class CreditCardService {
 
     return numbers;
   }
+
+  findUserByCard(userId: number) {
+    return this.creditCardRespository.findOne({
+      where: { user: { id: userId } },
+    });
+  }
 }

@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Transaction } from './entities/transaction.entity';
 import { transferMoneyDto } from './dto/transferMoney.dto';
+import { Transaction } from './entities/transaction.entity';
 
 @Injectable()
 export class TransactionService {
@@ -11,7 +11,14 @@ export class TransactionService {
     private readonly transactionRepository: Repository<Transaction>,
   ) {}
 
-  async transferMoneyAccountNumber(dto: transferMoneyDto, accountNumber: number) { //?
-    
+  async transferMoneyAccountNumber(dto: transferMoneyDto) {
+    const transaction: Transaction = new Transaction();
+
+    transaction.sender = dto.senderAccountNumber;
+    transaction.receiver = dto.receiverAccountNumber;
+    transaction.title = dto.title;
+    transaction.amount = dto.amount;
+
+    return this.transactionRepository.save(transaction);
   }
 }

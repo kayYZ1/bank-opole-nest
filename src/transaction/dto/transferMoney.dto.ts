@@ -1,8 +1,13 @@
 import { IsInt, IsNotEmpty, IsString, Max, Min } from 'class-validator';
 
 export class transferMoneyDto {
-  @IsInt()
-  receiverId: number;
+  @IsString()
+  @IsNotEmpty()
+  senderAccountNumber: string;
+
+  @IsString()
+  @IsNotEmpty()
+  receiverAccountNumber: string;
 
   @IsString()
   @IsNotEmpty()
@@ -11,5 +16,5 @@ export class transferMoneyDto {
   @IsInt()
   @Min(1, { message: 'Minimum amount is 1' })
   @Max(10000, { message: 'Maximum amount is 10.000' })
-  amount: string;
+  amount: number;
 }

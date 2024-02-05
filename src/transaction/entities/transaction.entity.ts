@@ -11,10 +11,10 @@ export class Transaction {
   id: number;
 
   @Column()
-  senderId: number;
+  sender: string;
 
   @Column()
-  receiverId: number;
+  receiver: string;
 
   @Column()
   title: string;
