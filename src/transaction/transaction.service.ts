@@ -25,10 +25,6 @@ export class TransactionService {
   }
 
   async getAllTransactions() {
-    return this.transactionRepository.find(); //Admin only
-  }
-
-  async getMyTransactions(userId: number) {
-    //No user relation (??)
+    return this.transactionRepository.find();
   }
 }
