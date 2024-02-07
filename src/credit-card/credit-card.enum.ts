@@ -17,5 +17,5 @@ export enum Currency {
   PLN = 'pln',
   EUR = 'euro',
   USD = 'dollar',
-  GBP = 'pound'
+  GBP = 'pound',
 }
