@@ -56,6 +56,8 @@ export class CurrencyExchangeService {
         return { title, currencyData };
       });
 
+      //ToDO: Think about improving performance (currentl 9-10 seconds)
+
       await browser.close();
 
       return data;

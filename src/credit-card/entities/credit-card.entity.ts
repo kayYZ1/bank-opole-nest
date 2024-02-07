@@ -28,10 +28,10 @@ export class CreditCard {
   cvv: string;
 
   @Column({ default: 1000 })
-  balance: number
+  balance: number;
 
   @Column({ type: 'enum', enum: Currency, default: Currency.PLN })
-  currency: Currency
+  currency: Currency;
 
   @Column({ type: 'enum', enum: CardStatus, default: CardStatus.ACTIVE })
   cardStatus: CardStatus;
