@@ -15,6 +15,7 @@ import { CreditCard } from './credit-card/entities/credit-card.entity';
 import { Transaction } from './transaction/entities/transaction.entity';
 import { TransactionModule } from './transaction/transaction.module';
 import { CurrencyExchangeModule } from './currency-exchange/currency-exchange.module';
+import { LoanCalculatorModule } from './loan-calculator/loan-calculator.module';
 
 @Module({
   imports: [
@@ -44,6 +45,7 @@ import { CurrencyExchangeModule } from './currency-exchange/currency-exchange.mo
     CreditCardModule,
     TransactionModule,
     CurrencyExchangeModule,
+    LoanCalculatorModule,
   ],
   controllers: [AppController],
   providers: [AppService],
