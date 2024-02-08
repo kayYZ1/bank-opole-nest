@@ -1,4 +1,12 @@
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class LoanCalculatorService {}
+export class LoanCalculatorService {
+  async mortgageCalculator() {
+
+  }
+
+  async cashLoanCalculator() {
+    
+  }
+}
