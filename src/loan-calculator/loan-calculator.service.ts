@@ -8,17 +8,22 @@ export class LoanCalculatorService {
   async cashLoanCalculator(dto: CashLoanDto) {
     const numenator =
       dto.loanAmount *
+      (dto.interestRate / dto.installments) *
       Math.pow(
-        (dto.interestRate / dto.installments) *
-          (1 + dto.interestRate / dto.installments),
+        1 + dto.interestRate / dto.installments,
         dto.monthPeriodRepayment,
       );
 
-    const denominator =
-      1 +
-      Math.pow(dto.interestRate / dto.installments, dto.monthPeriodRepayment) -
-      1;
+    console.log(numenator);
 
-    return numenator / denominator;
+    const denominator =
+      (1 +
+      Math.pow(dto.interestRate / dto.installments, dto.monthPeriodRepayment) -
+      1);
+    console.log(denominator)
+
+    const result = numenator / denominator;
+    console.log(result);
+    return result;
   }
 }
