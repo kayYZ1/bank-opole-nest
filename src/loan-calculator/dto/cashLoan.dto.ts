@@ -15,5 +15,9 @@ export class CashLoanDto {
 
   @IsInt()
   @IsNotEmpty()
+  installments: number;
+
+  @IsInt()
+  @IsNotEmpty()
   provision: number;
 }
