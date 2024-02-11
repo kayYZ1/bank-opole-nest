@@ -14,16 +14,15 @@ export class LoanCalculatorService {
         dto.monthPeriodRepayment,
       );
 
-    console.log(numenator);
-
     const denominator =
-      (1 +
-      Math.pow(dto.interestRate / dto.installments, dto.monthPeriodRepayment) -
-      1);
-    console.log(denominator)
+      Math.pow(
+        1 + dto.interestRate / dto.installments,
+        dto.monthPeriodRepayment,
+      ) - 1;
 
     const result = numenator / denominator;
-    console.log(result);
-    return result;
+    const resultFixed = result.toFixed(2);
+
+    return +resultFixed;
   }
 }
