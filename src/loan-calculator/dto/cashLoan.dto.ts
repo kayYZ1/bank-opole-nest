@@ -1,23 +1,3 @@
-import { IsInt, IsNotEmpty } from 'class-validator';
+import { LoanDto } from './loan.dto';
 
-export class CashLoanDto {
-  @IsInt()
-  @IsNotEmpty()
-  loanAmount: number;
-
-  @IsInt()
-  @IsNotEmpty()
-  monthPeriodRepayment: number;
-
-  @IsInt()
-  @IsNotEmpty()
-  interestRate: number;
-
-  @IsInt()
-  @IsNotEmpty()
-  installments: number;
-
-  @IsInt()
-  @IsNotEmpty()
-  provision: number;
-}
+export class CashLoanDto extends LoanDto {}
