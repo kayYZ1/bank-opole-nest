@@ -9,6 +9,9 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { Request } from 'express';
+import { Role } from 'src/auth/auth.enum';
+import { ROLES } from 'src/auth/decorators/roles.decorator';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { AccessTokenGuard } from '../auth/guards/access-token.guard';
 import { CreditCardService } from './credit-card.service';
 import { IssueCardDto } from './dto/issue-card.dto';
@@ -42,5 +45,11 @@ export class CreditCardController {
   @Patch('/change-status/:id')
   changeStatus(@Body() dto: UpdateCardDto, @Param('id') id: string) {
     return this.creditCardService.changeStatus(dto, +id);
+  }
+
+  @UseGuards(AccessTokenGuard, RolesGuard)
+  @ROLES(Role.Admin)
+  removeCard(@Param('id') id: string) {
+    return this.creditCardService.removeCard(+id);
   }
 }

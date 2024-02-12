@@ -54,6 +54,16 @@ export class CreditCardService {
     return `Credit card ${id} changed it status to ${dto.cardStatus}`;
   }
 
+  async removeCard(id: number) {
+    const creditCard = await this.creditCardRespository.findOneBy({ id });
+    if (!creditCard) {
+      throw new BadRequestException('Credit card with such id does not exist');
+    }
+    await this.creditCardRespository.delete(id);
+
+    return `Credit card ${id} succesfully deleted`;
+  }
+
   assignCurrency(country: Country) {
     switch (country) {
       case Country.PL:
