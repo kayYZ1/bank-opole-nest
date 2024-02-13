@@ -20,6 +20,8 @@ export class LoanCalculatorService {
   }
 
   loanCalculator(dto: LoanDto) {
+    console.log(dto);
+    
     const numerator =
       dto.loanAmount *
       (dto.interestRate / dto.installments) *
