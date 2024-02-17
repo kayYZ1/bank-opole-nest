@@ -1,8 +1,8 @@
 import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
-import { Role } from 'src/auth/auth.enum';
-import { ROLES } from 'src/auth/decorators/roles.decorator';
-import { AccessTokenGuard } from 'src/auth/guards/access-token.guard';
-import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { Role } from '../auth/auth.enum';
+import { ROLES } from '../auth/decorators/roles.decorator';
+import { AccessTokenGuard } from '../auth/guards/access-token.guard';
+import { RolesGuard } from '../auth/guards/roles.guard';
 import { transferMoneyDto } from './dto/transferMoney.dto';
 import { TransactionService } from './transaction.service';
 

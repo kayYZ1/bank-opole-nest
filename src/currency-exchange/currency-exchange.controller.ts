@@ -1,5 +1,5 @@
 import { Controller, Get, UseGuards } from '@nestjs/common';
-import { AccessTokenGuard } from 'src/auth/guards/access-token.guard';
+import { AccessTokenGuard } from '../auth/guards/access-token.guard';
 import { CurrencyExchangeService } from './currency-exchange.service';
 
 @Controller('currency-exchange')

@@ -6,7 +6,7 @@ import { MortgageLoanDto } from './dto/mortgageLoan.dto';
 @Injectable()
 export class LoanCalculatorService {
   mortgageCalculator(dto: MortgageLoanDto) {
-    dto.paymentPeriod *= 12; // change years into months
+    dto.paymentPeriod *= 12; // Change years into months
 
     const mortgageLoanRate = this.loanCalculator(dto);
 
@@ -20,8 +20,6 @@ export class LoanCalculatorService {
   }
 
   loanCalculator(dto: LoanDto) {
-    console.log(dto);
-    
     const numerator =
       dto.loanAmount *
       (dto.interestRate / dto.installments) *

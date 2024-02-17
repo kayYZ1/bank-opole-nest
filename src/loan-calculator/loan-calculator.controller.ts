@@ -1,5 +1,5 @@
 import { Controller, Post, UseGuards } from '@nestjs/common';
-import { AccessTokenGuard } from 'src/auth/guards/access-token.guard';
+import { AccessTokenGuard } from '../auth/guards/access-token.guard';
 import { CashLoanDto } from './dto/cashLoan.dto';
 import { MortgageLoanDto } from './dto/mortgageLoan.dto';
 import { LoanCalculatorService } from './loan-calculator.service';

@@ -8,7 +8,7 @@ import {
   MinLength,
 } from 'class-validator';
 
-import { Role } from 'src/auth/auth.enum';
+import { Role } from '../../auth/auth.enum';
 
 export class CreateUserDto {
   @IsString()

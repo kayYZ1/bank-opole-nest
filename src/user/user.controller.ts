@@ -8,14 +8,14 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { AccessTokenGuard } from 'src/auth/guards/access-token.guard';
+import { AccessTokenGuard } from '../auth/guards/access-token.guard';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserService } from './user.service';
 
-import { Role } from 'src/auth/auth.enum';
-import { ROLES } from 'src/auth/decorators/roles.decorator';
-import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { Role } from '../auth/auth.enum';
+import { ROLES } from '../auth/decorators/roles.decorator';
+import { RolesGuard } from '../auth/guards/roles.guard';
 
 @Controller('user')
 export class UserController {

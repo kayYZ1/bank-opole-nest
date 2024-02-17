@@ -13,10 +13,10 @@ import { OpenAccountDto } from './dto/open-account.dto';
 import { SuspendAccountDto } from './dto/suspend-account.dto';
 import { UpdateAccountDto } from './dto/update-account.dto';
 
-import { Role } from 'src/auth/auth.enum';
-import { ROLES } from 'src/auth/decorators/roles.decorator';
-import { AccessTokenGuard } from 'src/auth/guards/access-token.guard';
-import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { Role } from '../auth/auth.enum';
+import { ROLES } from '../auth/decorators/roles.decorator';
+import { AccessTokenGuard } from '../auth/guards/access-token.guard';
+import { RolesGuard } from '../auth/guards/roles.guard';
 
 @Controller('account')
 export class AccountController {

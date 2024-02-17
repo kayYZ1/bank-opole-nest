@@ -18,29 +18,31 @@ describe('LoanCalculatorService', () => {
     expect(service).toBeDefined();
   });
 
-  it('should return correct monthly rate (cash)', () => {
-    const mockDto: CashLoanDto = {
-      loanAmount: 20000,
-      installments: 12,
-      paymentPeriod: 24, //months
-      interestRate: 0.08,
-    };
+  describe('loan rate calculation logic', () => {
+    it('should return correct monthly rate (cash)', () => {
+      const mockDto: CashLoanDto = {
+        loanAmount: 20000,
+        installments: 12,
+        paymentPeriod: 24, //months
+        interestRate: 0.08,
+      };
 
-    const rate = service.cashLoanCalculator(mockDto);
+      const rate = service.cashLoanCalculator(mockDto);
 
-    expect(rate).toBe(904.55);
-  });
+      expect(rate).toBe(904.55);
+    });
 
-  it('should return correct stable rate (mortgage)', () => {
-    const mockDto: MortgageLoanDto = {
-      loanAmount: 300000,
-      installments: 12,
-      paymentPeriod: 25, //years
-      interestRate: 0.04,
-    };
+    it('should return correct stable rate (mortgage)', () => {
+      const mockDto: MortgageLoanDto = {
+        loanAmount: 300000,
+        installments: 12,
+        paymentPeriod: 25, //years
+        interestRate: 0.04,
+      };
 
-    const rate = service.mortgageCalculator(mockDto);
+      const rate = service.mortgageCalculator(mockDto);
 
-    expect(rate).toBe(1583.51);
+      expect(rate).toBe(1583.51);
+    });
   });
 });
