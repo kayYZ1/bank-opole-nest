@@ -12,10 +12,10 @@ import { Account } from './account/entities/account.entity';
 import postgreConfig from './config/postgre.config';
 import { CreditCardModule } from './credit-card/credit-card.module';
 import { CreditCard } from './credit-card/entities/credit-card.entity';
-import { Transaction } from './transaction/entities/transaction.entity';
-import { TransactionModule } from './transaction/transaction.module';
 import { CurrencyExchangeModule } from './currency-exchange/currency-exchange.module';
 import { LoanCalculatorModule } from './loan-calculator/loan-calculator.module';
+import { Transaction } from './transaction/entities/transaction.entity';
+import { TransactionModule } from './transaction/transaction.module';
 
 @Module({
   imports: [
@@ -27,11 +27,11 @@ import { LoanCalculatorModule } from './loan-calculator/loan-calculator.module';
         }),
       ],
       useFactory: (configService: ConfigService) => ({
-        type: 'postgres',
-        host: 'localhost',
-        port: 5432,
+        type: configService.get<string>('postgre.type') as any,
+        host: configService.get<string>('postgre.host'),
+        port: configService.get<string>('postgre.port'),
         password: configService.get<string>('postgre.password'),
-        username: 'postgres',
+        username: configService.get<string>('postgre.user'),
         entities: [User, Account, CreditCard, Transaction],
         database: configService.get<string>('postgre.name'),
         synchronize: true,
