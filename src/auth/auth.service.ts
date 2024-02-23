@@ -51,18 +51,7 @@ export class AuthService {
 
     const tokens = await this.returnTokens(user);
 
-    const userState: IUserState = {
-      id: user.id,
-      fullName: user.fullName,
-      username: user.username,
-      email: user.email,
-      age: user.age,
-      gender: user.gender,
-      role: user.role,
-      tokens,
-    };
-
-    return userState;
+    return tokens;
   }
 
   async signOut(userId: number) {
