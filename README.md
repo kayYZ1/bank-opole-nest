@@ -1,73 +1,138 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+# NestJS Bank
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+NestJS is a REST Api Backend service for a (mock) bank that showcases the most frequent banking operations.
 
-## Description
+Project uses:
+- TypeScript
+- Jest
+- Docker
+- Github Actions for CI/CD
+- JWT for authentication and authorization
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Installation
 
-```bash
-$ yarn install
+
+## API Reference (just a few endpoints)
+
+#### Log in to the system
+
+```http
+  POST /auth/login
 ```
 
-## Running the app
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `email` | `string` | **Required** Email |
+| `password`| `string` | **Required** Password |
 
-```bash
-# development
-$ yarn run start
+#### Get item
 
-# watch mode
-$ yarn run start:dev
-
-# production mode
-$ yarn run start:prod
+```http
+  GET /auth/refresh
 ```
 
-## Test
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `token`      | `string` | **Required**. Requires accessToken to be stored in Authorization Header |
 
-```bash
-# unit tests
-$ yarn run test
+Used whenever accessToken is about to expire. Takes userId and refreshToken from 'req' and uses it to refresh current token.
 
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
+```http
+  GET /currency-exchange/
 ```
 
-## Support
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `token`      | `string` | **Required**. Requires accessToken to be stored in Authorization Header |
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Scrapes currencies of Euro, US Dolar and Sterling and returns it to showcase their current stand to Polish Złoty.
 
-## Stay in touch
+```http
+  POST /loan-calculator/mortgage
+```
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `token`      | `string` | **Required**. Requires accessToken to be stored in Authorization Header |
 
-## License
+Uses mathematical equation to calculate the mortage cost based on: amount, interest rate, number of installments and period of payment.
 
-Nest is [MIT licensed](LICENSE).
+
+
+## Environment Variables
+
+To run this project, it is required to prepare a few environment variables in the .env.development.local file.
+
+### PostgreSQL config
+
+`DB_TYPE`
+`PG_USER`
+`PG_DB`
+`PG_PASSWORD`
+`PG_PORT`
+`PG_HOST`
+
+### JWT secrets
+
+`SECRET`
+`ACCESS_SECRET`
+`REFRESH_SECRET`
+## Run Locally
+
+### NPM
+Clone the project
+
+```bash
+  git clone https://github.com/kayYZ1/nest-bank-service.git
+```
+
+Go to the project directory
+
+```bash
+  cd nest-bank-service
+```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the server
+
+```bash
+  npm run start
+```
+### Docker
+
+Clone the project
+```bash
+  git clone https://github.com/kayYZ1/nest-bank-service.git
+```
+
+Go to the project directory
+
+```bash
+  cd nest-bank-service
+```
+
+Use docker compose to run images
+
+```bash
+  docker compose up
+```
+
+## Running Tests
+
+To run unit tests
+
+```bash
+  npm run test
+```
+
+To run end to end tests
+
+```bash
+  npm run test:e2e
+```
